@@ -338,11 +338,27 @@ File xx=new File(PicToSend);
         KeyboardRow keyboardSecondRow = new KeyboardRow();
         // Добавляем кнопки во вторую строчку клавиатуры
         keyboardSecondRow.add("/DeleteAllPilots");
-        keyboardSecondRow.add("Команда 4");
+        keyboardSecondRow.add("/GetMyBalance");
+
+        // Вторая строчка клавиатуры
+        KeyboardRow keyboardThirdRow = new KeyboardRow();
+        // Добавляем кнопки во вторую строчку клавиатуры
+        keyboardThirdRow.add("/BuyCat");
+        keyboardThirdRow.add("/BuyTaz");
+
+        // Вторая строчка клавиатуры
+        KeyboardRow keyboardFourRow = new KeyboardRow();
+        // Добавляем кнопки во вторую строчку клавиатуры
+        keyboardFourRow.add("/leha");
+        keyboardFourRow.add("/wisdom");
+
 
         // Добавляем все строчки клавиатуры в список
         keyboard.add(keyboardFirstRow);
         keyboard.add(keyboardSecondRow);
+        keyboard.add(keyboardThirdRow);
+        keyboard.add(keyboardFourRow);
+
         // и устанавливаем этот список нашей клавиатуре
         replyKeyboardMarkup.setKeyboard(keyboard);
 
