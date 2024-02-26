@@ -1,2 +1,7 @@
-package com.example.tgbot.servise;public class CityesGame {
+package com.example.tgbot.servise;
+
+public class CityesGame {
+
+
+
 }

@@ -3,9 +3,10 @@ package com.example.tgbot.controller;
 
 import java.math.BigDecimal;
 
+import com.example.tgbot.model.PilotQ2;
 import com.example.tgbot.repository.PilotQ2Repo;
 import com.example.tgbot.servise.BankService;
-import com.example.tgbot.model.PilotQ2;
+
 import com.example.tgbot.model.TransferBalance;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BalanceController {
     private static final Logger log = LoggerFactory.getLogger(BalanceController.class);
     private BankService bankService;
-    private PilotQ2Repo pilotQ2Repo;
+   private PilotQ2Repo pilotQ2Repo;
 
     @GetMapping ("/Pilot/")
     public String PilotGet (PilotQ2 pilotQ2)
@@ -41,7 +42,7 @@ public class BalanceController {
 
     @GetMapping({"/GetBalance/{accountId}"})
     public BigDecimal GetBalance(@PathVariable Long accountId) throws IllegalAccessException {
-        //  return bankService.Getbalance(accountId);
+    //    return (new BigDecimal(345));
         return bankService.Getbalance(accountId);
     }
     //
