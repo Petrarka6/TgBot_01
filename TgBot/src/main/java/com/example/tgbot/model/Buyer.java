@@ -1,8 +1,6 @@
 package com.example.tgbot.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
@@ -14,6 +12,6 @@ public class Buyer {
     private Long id;
     String Firstname;
     long chatIdd;
-    Integer Balance;
+    Long Balance;
 
 }

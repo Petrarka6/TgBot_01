@@ -64,13 +64,16 @@ this.config =config;
        boolean р =buyerRepo.existsById(chatId);
        if(! buyerRepo.existsById(chatId))
        {
-           addBuyer.setBalance(10000);
+           addBuyer.setBalance(10000L);
            buyerRepo.save(addBuyer);
        }
 
         if(update.hasMessage()&&(update.getMessage().hasText())) {
 
                String messegeText =update.getMessage().getText();
+
+               Date date =new Date();
+               Long LongMillis= date.getTime();
 
 
               if ( messegeText.equals("/start")){
@@ -92,7 +95,7 @@ this.config =config;
                   );
               } else if (( messegeText.equals("/BuyCat"))) { //Да, я в курсе что код 2 раза повторяется, из за 2 раз изобретать что то  смысла нет ящитаю
 
-                  Integer OldBalance=  buyerRepo.findById(chatId).get().getBalance();
+                  Long OldBalance=  buyerRepo.findById(chatId).get().getBalance();
                   if (OldBalance>=100){
 
                       sendMessage(chatId, "Вот твой кэт");
@@ -111,7 +114,7 @@ this.config =config;
 
               } else if (( messegeText.equals("/BuyTaz"))) {
 
-                    Integer OldBalance=  buyerRepo.findById(chatId).get().getBalance();
+                    Long OldBalance=  buyerRepo.findById(chatId).get().getBalance();
                     if (OldBalance>=300){
                         sendMessage(chatId, "Вот твой таз");
                         Random rn = new Random();
@@ -246,7 +249,53 @@ this.config =config;
               }else if (messegeText.contains("DeleteAllPilots")) {
                   pilotQ2Repo.deleteAll();
                 sendMessage(chatId, "Всех удалил ");
-              } else{
+
+
+              } else if (messegeText.contains("SetBalance ")) {
+                  String[] parts = messegeText.split(" ");
+                  if(parts.length!=3 ){sendMessage(chatId, "Чет не правильно вводиш"); return;}
+                  long SetBa;
+                  long SetBaId;
+
+                  try{
+                      SetBaId = Long.parseLong(parts[1]);//как то можно сразу инт но пофиг, гдето выше есть
+                  }
+                  catch (NumberFormatException rf) {
+                      sendMessage(chatId, "Айдишник введи мормально"); return;
+                  }
+
+                  try{
+                      SetBa = Long.parseLong(parts[2]);//как то можно сразу инт но пофиг, гдето выше есть
+                  }
+                  catch (NumberFormatException rf) {
+                      sendMessage(chatId, "Сумму введи мормально"); return;
+                  }
+
+                   if( buyerRepo.existsById(SetBaId)){
+                      addBuyer.setFirstname(buyerRepo.findById(SetBaId).get().getFirstname());
+                       addBuyer.setId(SetBaId);
+                       addBuyer.setBalance(SetBa);//заполнили и отправили
+                       buyerRepo.save(addBuyer);
+                       sendMessage(chatId, "Поменял"); return;
+                   }else{
+                       sendMessage(chatId, "Не знаю таких"); return;
+                   }
+
+
+
+
+
+              }else if ((messegeText.contains("GetBaseBalance"))&&(chatId==5021216246L)) {
+
+                  Iterable<Buyer> burrr = buyerRepo.findAll();
+                  //   sendMessage(chatId, pilotQ2Repo.toString());
+                  for(Buyer sss : burrr){
+                      sendMessage(chatId,  sss.toString());
+                  }
+                 /// sendMessage(chatId,  burrr.toString());
+              }
+
+              else{
 
                   sendMessage(chatId, "Пока не умею такого");
                   try {   sendMessagePicture(chatId, "Kot_debil.jpg");}
